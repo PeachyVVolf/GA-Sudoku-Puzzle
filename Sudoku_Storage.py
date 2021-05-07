@@ -48,8 +48,10 @@ class Sudoku:
                 row += 1
                 col += 1
         print("|")
+        print("Fitness Score: ", self.fitness_score)
 
     def fitness(self):
+        self.fitness_score = 0
         horizontal_fitness = 0
         vertical_fitness = 0
         box_fitness = 0

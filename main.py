@@ -2,7 +2,8 @@ import Game
 
 
 def main():
-    Game
+    board1 = Game.SudokuGame()
+    board1.create_sudoku_children()
 
 
 if __name__ == "__main__":
