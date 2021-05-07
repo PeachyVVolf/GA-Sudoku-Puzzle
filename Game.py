@@ -1,7 +1,7 @@
 import Sudoku_Storage
 import random
 
-population_size = 5
+population_size = 10
 
 
 class SudokuGame:
@@ -13,6 +13,9 @@ class SudokuGame:
         self.game.read_from_file()   # read from file and populate array
         self.game.fitness()  # calculate and print fitness score, 100% fitness would be 243
         self.game.print()    # print Sudoku
+
+    def set_game(self, best_from_previous):
+        self.game.deep_copy(best_from_previous)
 
     def create_sudoku_children(self):
         for i in range(population_size):
@@ -30,7 +33,7 @@ class SudokuGame:
         random_index_to_mutate = random.randint(0, Sudoku_Storage.game_size * Sudoku_Storage.game_size + Sudoku_Storage.game_size - 1)
         self.arr[array_index].SudokuNumbers[random_index_to_mutate] = random.randint(1, 9)
         self.arr[array_index].fitness()
-        self.arr[array_index].print_fitness()
+        # self.arr[array_index].print_fitness()
         if self.arr[array_index]. fitness_score == Sudoku_Storage.best_fitness:
             exit()
 
@@ -43,11 +46,20 @@ class SudokuGame:
                     self.arr[j].deep_copy(self.arr[j + 1])
                     self.arr[j + 1].deep_copy(temp)
 
-        print("_________________________AFTER SORT_________________________")
-        for i in range(population_size):
-            self.arr[i].print_fitness()
+        # print("_________________________AFTER SORT_________________________")
+        # for i in range(population_size):
+        #     self.arr[i].print_fitness()
 
     def crossover(self, first_index):
         second_index = random.randint(0, population_size - 1)
         cut_off = random.randint(0, Sudoku_Storage.game_size * Sudoku_Storage.game_size + Sudoku_Storage.game_size)
+        self.perform_crossover(first_index, second_index, cut_off)
 
+    def perform_crossover(self, first_index, second_index, cut_off):
+        temp = 0
+        for i in range(cut_off, Sudoku_Storage.game_size * Sudoku_Storage.game_size + Sudoku_Storage.game_size):
+            temp = self.arr[first_index].SudokuNumbers[i]
+            self.arr[first_index].SudokuNumbers[i] = self.arr[second_index].SudokuNumbers[i]
+            self.arr[second_index].SudokuNumbers[i] = temp
+        self.arr[first_index].fitness()
+        self.arr[second_index].fitness()

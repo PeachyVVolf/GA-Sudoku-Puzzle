@@ -92,6 +92,10 @@ class Sudoku:
             box_fitness = box_fitness + self.check_box_fitness(totalBoxes)
         self.fitness_score = self.fitness_score + box_fitness
 
+        if self.fitness_score == best_fitness:
+            self.print()
+            exit()
+
     def check_box_fitness(self, box_number):
         empty = [0] * 9
         box_fitness = 0
