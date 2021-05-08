@@ -1,7 +1,7 @@
 import Sudoku_Storage
 import random
 
-population_size = 10
+population_size = 5
 
 
 class SudokuGame:
@@ -49,6 +49,28 @@ class SudokuGame:
         # print("_________________________AFTER SORT_________________________")
         # for i in range(population_size):
         #     self.arr[i].print_fitness()
+
+    def merge_sort(self, left, right):
+        if left < right - 1:
+            mid = (right - left) // 2
+            self.merge_sort(left, mid)
+            self.merge_sort(mid + 1, right)
+            self.merge(left, right)
+        else:
+            self.merge(left, right)
+            return
+
+    def merge(self, left, right):
+        temp = Sudoku_Storage.Sudoku()
+        while left < right:
+            index = left
+            while index <= right:
+                if self.arr[left].fitness_score < self.arr[index].fitness_score:
+                    temp.deep_copy(self.arr[left])
+                    self.arr[left].deep_copy(self.arr[index])
+                    self.arr[index].deep_copy(temp)
+                index += 1
+            left += 1
 
     def crossover(self, first_index):
         second_index = random.randint(0, population_size - 1)

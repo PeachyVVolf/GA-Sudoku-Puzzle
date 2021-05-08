@@ -92,7 +92,7 @@ class Sudoku:
             box_fitness = box_fitness + self.check_box_fitness(totalBoxes)
         self.fitness_score = self.fitness_score + box_fitness
 
-        if self.fitness_score == best_fitness:
+        if self.fitness_score >= best_fitness:
             self.print()
             exit()
 
