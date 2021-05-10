@@ -31,7 +31,8 @@ class SudokuGame:
 
     def mutate_sudoku(self, array_index):
         random_index_to_mutate = random.randint(0, Sudoku_Storage.game_size * Sudoku_Storage.game_size + Sudoku_Storage.game_size - 1)
-        self.arr[array_index].SudokuNumbers[random_index_to_mutate] = random.randint(1, 9)
+        if self.arr[array_index].SudokuNumbers[random_index_to_mutate] != -38:
+            self.arr[array_index].SudokuNumbers[random_index_to_mutate] = random.randint(1, 9)
         self.arr[array_index].fitness()
         # self.arr[array_index].print_fitness()
         if self.arr[array_index]. fitness_score == Sudoku_Storage.best_fitness:

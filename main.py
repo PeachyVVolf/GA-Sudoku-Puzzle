@@ -5,7 +5,7 @@ def main():
     board1 = Game.SudokuGame()
     index = 0
 
-    while index <= 10000:
+    while index <= 3000:
 
         board1.create_sudoku_children()
         for i in range(Game.population_size):
